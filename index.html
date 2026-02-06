@@ -1,15 +1,430 @@
-<html>
- <head>
-  </head>
-  <body lang="en">
-  
-	<header>
-   	 <h1>Declan Longfield's Portfolio Website</h1>
-    
-   	</header>
-    
-    <h1>My Hello world</h1>
-    <p>Welcome to my portfolio website.</p>
 
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Declan Longfield — Portfolio</title>
+  <meta name="description" content="Portfolio of Declan Longfield — projects, skills, and contact." />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ====== THEME (Futuristic + Teal) ====== */
+    :root {
+      --bg: #05080f;             /* deep space */
+      --bg-2: #070b14;
+      --text: #e8f7f7;
+      --muted: #9cd3cf;
+      --teal: #15e6c1;           /* main accent */
+      --teal-2: #0fb8a2;         /* secondary accent */
+      --violet: #6a5acd;         /* subtle secondary */
+      --glass: rgba(16, 26, 39, 0.5);
+      --border: rgba(117, 255, 233, 0.18);
+      --ring: rgba(21, 230, 193, 0.35);
+      --shadow: 0 20px 60px rgba(0,0,0,.55);
+      --radius: 16px;
+      --maxw: 1120px;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f6fffd;
+        --bg-2: #ebfffb;
+        --text: #061a1a;
+        --muted: #327a73;
+        --glass: rgba(255, 255, 255, 0.65);
+        --border: rgba(14, 171, 150, 0.25);
+        --ring: rgba(14, 171, 150, 0.35);
+        --shadow: 0 16px 50px rgba(10, 48, 44, .18);
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0;
+      background: radial-gradient(1200px 800px at 10% -10%, rgba(21,230,193,0.08), transparent 60%),
+                  radial-gradient(900px 600px at 110% 20%, rgba(106,90,205,0.07), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height: 1.5;
+      min-height: 100%;
+      overflow-x: hidden;
+    }
+
+    /* Subtle animated starfield background */
+    .stars, .stars:after {
+      content: "";
+      position: fixed; inset: 0;
+      background:
+        radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,.6), transparent 60%),
+        radial-gradient(2px 2px at 80% 70%, rgba(255,255,255,.5), transparent 60%),
+        radial-gradient(1px 1px at 50% 90%, rgba(255,255,255,.4), transparent 60%),
+        radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,.4), transparent 60%),
+        radial-gradient(1px 1px at 60% 20%, rgba(255,255,255,.4), transparent 60%);
+      opacity: .25;
+      pointer-events: none;
+      animation: drift 60s linear infinite;
+    }
+    .stars:after { animation-duration: 90s; opacity: .18; filter: blur(0.5px); }
+    @keyframes drift { to { transform: translate3d(-200px, -120px, 0); } }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; border-radius: 12px; }
+    .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+
+    /* ====== Components ====== */
+    .btn {
+      display: inline-flex; align-items: center; gap: .6rem; cursor: pointer;
+      padding: .8rem 1.1rem; border-radius: 999px; font-weight: 700; letter-spacing: .2px;
+      color: #061a1a; background: linear-gradient(180deg, var(--teal), #13cdb1);
+      border: 1px solid rgba(0,0,0,.08);
+      box-shadow:
+        0 0 0 3px rgba(21, 230, 193, 0.15),
+        0 10px 30px rgba(21, 230, 193, 0.25);
+      transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+    }
+    .btn:hover { transform: translateY(-1px); filter: brightness(1.03); }
+    .btn.secondary {
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border);
+      box-shadow: inset 0 0 0 1px rgba(21,230,193,0.12);
+    }
+
+    .chip {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .85rem; color: var(--teal);
+      padding: .35rem .7rem; border-radius: 999px;
+      background: linear-gradient(180deg, rgba(21,230,193,0.12), rgba(21,230,193,0.06));
+      border: 1px solid var(--border);
+      text-shadow: 0 0 10px rgba(21,230,193,.35);
+    }
+
+    /* ====== Header ====== */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(130%) blur(10px);
+      background: linear-gradient(180deg, rgba(5, 8, 15, .8), rgba(5, 8, 15, .35));
+      border-bottom: 1px solid var(--border);
+    }
+    nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .brand { display: flex; align-items: center; gap: .6rem; font-weight: 800; letter-spacing: .4px; }
+    .brand .dot {
+      width: 12px; height: 12px; border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fff, var(--teal) 40%, #0a3d36 80%);
+      box-shadow: 0 0 16px rgba(21,230,193,.8), 0 0 40px rgba(21,230,193,.25);
+    }
+    .nav-links { display: flex; gap: .25rem; flex-wrap: wrap; }
+    .nav-links a {
+      padding: .5rem .75rem; border-radius: 10px; color: var(--muted);
+      border: 1px solid transparent;
+    }
+    .nav-links a:hover, .nav-links a:focus {
+      color: var(--text);
+      background: linear-gradient(180deg, rgba(21,230,193,0.10), rgba(21,230,193,0.03));
+      border-color: var(--border);
+      outline: 2px solid transparent; box-shadow: 0 0 0 5px var(--ring);
+      transition: box-shadow .2s ease, background .2s ease;
+    }
+
+    /* ====== Hero ====== */
+    .hero { padding: 72px 0 28px; }
+    .hero-inner { display: grid; grid-template-columns: 1.1fr .9fr; gap: 36px; align-items: center; }
+    @media (max-width: 900px) { .hero-inner { grid-template-columns: 1fr; } }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.2rem); line-height: 1.1; margin: 0 0 12px;
+      text-shadow: 0 0 24px rgba(21,230,193,.18);
+    }
+    .hero p { color: var(--muted); font-size: 1.05rem; margin: 0 0 22px; }
+    .hero .cta { display: flex; gap: .8rem; flex-wrap: wrap; }
+
+    .avatar {
+      width: 160px; aspect-ratio: 1; border-radius: 50%;
+      border: 6px solid rgba(21,230,193,0.25);
+      box-shadow: 0 0 40px rgba(21,230,193,.18), var(--shadow);
+      overflow: hidden; flex-shrink: 0;
+    }
+    .hero-card {
+      background:
+        linear-gradient(180deg, rgba(21,230,193,0.10), rgba(21,230,193,0.03)),
+        var(--glass);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 24px; display: flex; gap: 20px; align-items: center;
+      box-shadow: var(--shadow);
+    }
+
+    /* ====== Sections ====== */
+    section { padding: 56px 0; scroll-margin-top: 90px; }
+    .section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .section-head h2 {
+      margin: 0; font-size: 1.6rem;
+      text-shadow: 0 0 18px rgba(21,230,193,.15);
+    }
+    .grid { display: grid; gap: 16px; }
+    .grid.cards { grid-template-columns: repeat(3, 1fr); }
+    @media (max-width: 900px) { .grid.cards { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 620px) { .grid.cards { grid-template-columns: 1fr; } }
+
+    .card {
+      background:
+        linear-gradient(180deg, rgba(21,230,193,0.07), rgba(21,230,193,0.02)),
+        var(--glass);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 18px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 12px;
+    }
+    .card .thumb {
+      aspect-ratio: 16/9; background: linear-gradient(180deg, var(--bg-2), rgba(21,230,193,0.06));
+      border-radius: 12px; overflow: hidden; border: 1px solid var(--border);
+    }
+    .card h3 { margin: 6px 0 4px; font-size: 1.12rem; }
+    .meta { color: var(--muted); font-size: .95rem; }
+    .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+
+    /* ====== Contact ====== */
+    .contact {
+      background: linear-gradient(180deg, rgba(21,230,193,0.10), rgba(21,230,193,0.03)), var(--glass);
+      border: 1px solid var(--border); border-radius: var(--radius); padding: 24px;
+      box-shadow: var(--shadow);
+    }
+    form { display: grid; gap: 12px; }
+    input, textarea {
+      width: 100%; padding: .9rem 1rem; border-radius: 12px; border: 1px solid var(--border);
+      background: rgba(7, 15, 22, 0.6); color: var(--text);
+      box-shadow: inset 0 0 0 1px rgba(21,230,193,0.05);
+    }
+    input:focus, textarea:focus { outline: none; box-shadow: 0 0 0 5px var(--ring); }
+    textarea { min-height: 140px; resize: vertical; }
+
+    /* ====== Footer ====== */
+    footer { border-top: 1px solid var(--border); padding: 32px 0; color: var(--muted); }
+
+    /* ====== Utilities ====== */
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+    .mono { font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+  </style>
+</head>
+<body>
+  <div class="stars" aria-hidden="true"></div>
+
+  <header id="top">
+    <div class="container">
+      <nav aria-label="Primary">
+        <div class="brand">
+          <span class="dot" aria-hidden="true"></span>
+          <span>Declan Longfield</span>
+        </div>
+        <div class="nav-links">
+          <a href="#projects">Projects</a>
+          <a href="#skills">Skills</a>
+          <a href="#education">Education</a>
+          <a href="#contact">Contact</a>
+          <!-- Resume link can go here -->
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <div>
+          <div class="chip">Open to opportunities</div>
+          <h1>Hi, I’m <span style="color: var(--teal)">Declan Longfield</span> — <br/><span class="mono">Highschool student</span></h1>
+          <p class="meta">Short bio coming soon. (I’ll add 3–5 sentences about your interests, strengths, and what you’re looking for.)</p>
+          <div class="cta">
+            <a class="btn" href="#projects">See My Work</a>
+            <!-- Add socials when ready -->
+            <!-- <a class="btn secondary" href="https://github.com/yourhandle" target="_blank" rel="noopener">GitHub</a> -->
+          </div>
+        </div>
+        <div class="hero-card">
+          <img class="avatar" src="https://via.placeholder.com/300x300.png?text=Declan" alt="Declan profile placeholder" />
+          <div>
+            <p class="meta">Based in Kingston, ON • Available for internships</p>
+            <p class="meta">Focused on building, learning, and shipping useful projects.</p>
+            <div class="tags">
+              <span class="chip">Your skills here</span>
+              <span class="chip">e.g., Python</span>
+              <span class="chip">JavaScript</span>
+              <span class="chip">React</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+      <div class="container">
+        <div class="section-head">
+          <h2>Projects</h2>
+          <!-- <a class="mono" href="https://github.com/yourhandle?tab=repositories" target="_blank" rel="noopener">All Repos →</a> -->
+        </div>
+        <div class="grid cards">
+          <!-- Placeholder cards; I’ll replace with your real ones -->
+          <article class="card" aria-busy="true">
+            <div class="thumb">
+              <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&q=80&auto=format&fit=crop" alt="Project placeholder 1">
+            </div>
+            <h3>Project Title</h3>
+            <p class="meta">Short description goes here. I’ll swap these with your real projects.</p>
+            <div class="tags">
+              <span class="chip">Tech</span><span class="chip">Stack</span>
+            </div>
+            <div class="cta" style="margin-top: 8px;">
+              <a class="btn secondary" href="#" aria-disabled="true">GitHub</a>
+              <a class="btn secondary" href="#" aria-disabled="true">Live Demo</a>
+            </div>
+          </article>
+
+          <article class="card" aria-busy="true">
+            <div class="thumb">
+              <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=80&auto=format&fit=crop" alt="Project placeholder 2">
+            </div>
+            <h3>Project Title</h3>
+            <p class="meta">Short description goes here.</p>
+            <div class="tags">
+              <span class="chip">Tech</span><span class="chip">Stack</span>
+            </div>
+            <div class="cta" style="margin-top: 8px;">
+              <a class="btn secondary" href="#" aria-disabled="true">GitHub</a>
+              <a class="btn secondary" href="#" aria-disabled="true">Live Demo</a>
+            </div>
+          </article>
+
+          <article class="card" aria-busy="true">
+            <div class="thumb">
+              <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80&auto=format&fit=crop" alt="Project placeholder 3">
+            </div>
+            <h3>Project Title</h3>
+            <p class="meta">Short description goes here.</p>
+            <div class="tags">
+              <span class="chip">Tech</span><span class="chip">Stack</span>
+            </div>
+            <div class="cta" style="margin-top: 8px;">
+              <a class="btn secondary" href="#" aria-disabled="true">GitHub</a>
+              <a class="btn secondary" href="#" aria-disabled="true">Live Demo</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <div class="container">
+        <h2>Skills</h2>
+        <div class="grid" style="grid-template-columns: repeat(3, 1fr); gap: 16px;">
+          <div class="card">
+            <h3>Languages</h3>
+            <div class="tags">
+              <span class="chip">Add yours</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Tools & Frameworks</h3>
+            <div class="tags">
+              <span class="chip">Add yours</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Other</h3>
+            <div class="tags">
+              <span class="chip">Leadership</span><span class="chip">Teamwork</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education">
+      <div class="container">
+        <h2>Education & Activities</h2>
+        <div class="grid cards">
+          <div class="card">
+            <h3>High School — Grade 12</h3>
+            <p class="meta">Kingston, ON</p>
+            <p class="meta">Expected Graduation: <!-- Add when you share it --></p>
+            <p>Relevant courses: <!-- I’ll list these when you share them --></p>
+          </div>
+          <div class="card">
+            <h3>Clubs & Awards</h3>
+            <ul class="meta" style="margin: 0 0 0 1rem;">
+              <li><!-- Add clubs/roles (e.g., Robotics, DECA, Hackathons) --></li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Certifications</h3>
+            <ul class="meta" style="margin: 0 0 0 1rem;">
+              <li><!-- Add any certifications or courses --></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="container">
+        <div class="section-head">
+          <h2>Get in touch</h2>
+        </div>
+        <div class="contact">
+          <p class="meta">Prefer email? <a class="mono" href="mailto:declan.longfield@gmail.com">declan.longfield@gmail.com</a></p>
+          <!-- If you want a working form, I can wire it to Formspree -->
+          <form onsubmit="return handleSubmit(event)" aria-label="Contact form (placeholder)" novalidate>
+            <label class="sr-only" for="name">Name</label>
+            <input id="name" name="name" placeholder="Your name" required>
+            <label class="sr-only" for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="Your email" required>
+            <label class="sr-only" for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Your message" required></textarea>
+            <button class="btn" type="submit">Send Message</button>
+          </form>
+          <p id="form-status" class="meta" role="status" aria-live="polite" style="margin-top: 8px;"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+      <div>© <span id="year"></span> Declan Longfield. All rights reserved.</div>
+      <div style="display:flex;gap:12px;">
+        <a class="mono" href="#top">Top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Set current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Demo contact handler
+    function handleSubmit(e) {
+      e.preventDefault();
+      const status = document.getElementById('form-status');
+      status.textContent = 'Thanks! This demo form is not wired up yet.';
+      return false;
+    }
+
+    // Smooth scroll for same-page links
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href').slice(1);
+        const target = document.getElementById(id);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
 </html>
+
