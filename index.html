@@ -7,24 +7,25 @@
   <title>Declan Longfield — Portfolio</title>
   <meta name="description" content="Portfolio of Declan Longfield — projects, skills, and contact." />
   <meta name="color-scheme" content="dark light" />
+  <!-- Fonts (Inter + JetBrains Mono) -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
 
   <style>
     /* ====== THEME (Futuristic + Teal) ====== */
     :root {
-      --bg: #05080f;             /* deep space */
+      --bg: #05080f;
       --bg-2: #070b14;
       --text: #e8f7f7;
       --muted: #9cd3cf;
-      --teal: #15e6c1;           /* main accent */
-      --teal-2: #0fb8a2;         /* secondary accent */
-      --violet: #6a5acd;         /* subtle secondary */
+      --teal: #15e6c1;      /* main accent */
+      --teal-2: #0fb8a2;    /* secondary accent */
+      --violet: #6a5acd;    /* subtle secondary */
       --glass: rgba(16, 26, 39, 0.5);
-      --border: rgba(117, 255, 233, 0.18);
-      --ring: rgba(21, 230, 193, 0.35);
-      --shadow: 0 20px 60px rgba(0,0,0,.55);
+      --border: rgba(117, 255, 233, 0.22);
+      --ring: rgba(21, 230, 193, 0.5);
+      --shadow: 0 24px 80px rgba(0,0,0,.55);
       --radius: 16px;
       --maxw: 1120px;
     }
@@ -34,19 +35,20 @@
         --bg-2: #ebfffb;
         --text: #061a1a;
         --muted: #327a73;
-        --glass: rgba(255, 255, 255, 0.65);
-        --border: rgba(14, 171, 150, 0.25);
-        --ring: rgba(14, 171, 150, 0.35);
-        --shadow: 0 16px 50px rgba(10, 48, 44, .18);
+        --glass: rgba(255, 255, 255, 0.7);
+        --border: rgba(14, 171, 150, 0.3);
+        --ring: rgba(14, 171, 150, 0.45);
+        --shadow: 0 20px 60px rgba(10, 48, 44, .18);
       }
     }
 
     * { box-sizing: border-box; }
     html, body {
       margin: 0; padding: 0;
-      background: radial-gradient(1200px 800px at 10% -10%, rgba(21,230,193,0.08), transparent 60%),
-                  radial-gradient(900px 600px at 110% 20%, rgba(106,90,205,0.07), transparent 60%),
-                  var(--bg);
+      background:
+        radial-gradient(1400px 900px at 12% -10%, rgba(21,230,193,0.10), transparent 60%),
+        radial-gradient(1000px 700px at 110% 20%, rgba(106,90,205,0.09), transparent 60%),
+        var(--bg);
       color: var(--text);
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       line-height: 1.5;
@@ -54,79 +56,124 @@
       overflow-x: hidden;
     }
 
-    /* Subtle animated starfield background */
+    /* ====== Starfield + Ambient Glow ====== */
     .stars, .stars:after {
       content: "";
       position: fixed; inset: 0;
       background:
-        radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,.6), transparent 60%),
-        radial-gradient(2px 2px at 80% 70%, rgba(255,255,255,.5), transparent 60%),
-        radial-gradient(1px 1px at 50% 90%, rgba(255,255,255,.4), transparent 60%),
-        radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,.4), transparent 60%),
-        radial-gradient(1px 1px at 60% 20%, rgba(255,255,255,.4), transparent 60%);
+        radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,.7), transparent 55%),
+        radial-gradient(2px 2px at 80% 70%, rgba(255,255,255,.55), transparent 55%),
+        radial-gradient(1px 1px at 50% 90%, rgba(255,255,255,.45), transparent 55%),
+        radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,.4), transparent 55%),
+        radial-gradient(1px 1px at 60% 20%, rgba(255,255,255,.35), transparent 55%);
       opacity: .25;
       pointer-events: none;
       animation: drift 60s linear infinite;
     }
     .stars:after { animation-duration: 90s; opacity: .18; filter: blur(0.5px); }
-    @keyframes drift { to { transform: translate3d(-200px, -120px, 0); } }
+    @keyframes drift { to { transform: translate3d(-220px, -140px, 0); } }
+
+    /* Ambient moving gradient for subtle scene motion */
+    .ambient {
+      position: fixed; inset: -20%;
+      background: conic-gradient(from 0deg at 70% 30%, rgba(21,230,193,0.10), transparent 35%, rgba(106,90,205,0.10), transparent 70%);
+      filter: blur(60px);
+      opacity: .35;
+      animation: ambientSpin 28s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes ambientSpin { to { transform: rotate(360deg); } }
 
     a { color: inherit; text-decoration: none; }
     img { max-width: 100%; display: block; border-radius: 12px; }
     .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
 
-    /* ====== Components ====== */
+    /* ====== Shared Motion ====== */
+    :root {
+      --t-fast: .15s;
+      --t-med: .25s;
+      --t-slow: .45s;
+      --e-out: cubic-bezier(.2,.8,.2,1);
+      --e-bounce: cubic-bezier(.2,1,.2,1);
+    }
+
+    .lift {
+      transition: transform var(--t-med) var(--e-out), filter var(--t-med) var(--e-out), box-shadow var(--t-med) var(--e-out);
+      will-change: transform, filter, box-shadow;
+    }
+    .lift:hover, .lift:focus-within {
+      transform: translateY(-6px); /* ★ magnetic lift */
+      filter: brightness(1.05);
+    }
+
+    /* ====== Buttons ====== */
     .btn {
       display: inline-flex; align-items: center; gap: .6rem; cursor: pointer;
-      padding: .8rem 1.1rem; border-radius: 999px; font-weight: 700; letter-spacing: .2px;
-      color: #061a1a; background: linear-gradient(180deg, var(--teal), #13cdb1);
+      padding: .85rem 1.15rem; border-radius: 999px; font-weight: 800; letter-spacing: .2px;
+      color: #061a1a; background:
+        linear-gradient(120deg, var(--teal), var(--teal-2) 60%, var(--teal));
+      background-size: 200% 200%; /* for animated gradient */
       border: 1px solid rgba(0,0,0,.08);
       box-shadow:
-        0 0 0 3px rgba(21, 230, 193, 0.15),
-        0 10px 30px rgba(21, 230, 193, 0.25);
-      transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+        0 0 0 4px rgba(21, 230, 193, 0.18),
+        0 8px 26px rgba(21, 230, 193, 0.28),
+        0 0 36px rgba(21,230,193,.25); /* ★ stronger glow */
+      transition: transform var(--t-fast) var(--e-bounce), box-shadow var(--t-fast) var(--e-out), filter var(--t-fast) var(--e-out), background-position .8s ease;
     }
-    .btn:hover { transform: translateY(-1px); filter: brightness(1.03); }
+    .btn:hover {
+      transform: translateY(-3px) scale(1.02);
+      background-position: 100% 0; /* ★ animated gradient sweep */
+      box-shadow:
+        0 0 0 6px rgba(21, 230, 193, 0.22),
+        0 18px 50px rgba(21, 230, 193, 0.38),
+        0 0 60px rgba(21,230,193,.35);
+    }
+    .btn:active { transform: translateY(0) scale(0.99); }
     .btn.secondary {
       background: transparent; color: var(--text);
       border: 1px solid var(--border);
-      box-shadow: inset 0 0 0 1px rgba(21,230,193,0.12);
+      box-shadow: inset 0 0 0 1px rgba(21,230,193,0.18), 0 0 24px rgba(21,230,193,.15);
     }
 
+    /* ====== Chip ====== */
     .chip {
       display: inline-flex; align-items: center; gap: .4rem;
       font-size: .85rem; color: var(--teal);
-      padding: .35rem .7rem; border-radius: 999px;
-      background: linear-gradient(180deg, rgba(21,230,193,0.12), rgba(21,230,193,0.06));
+      padding: .38rem .7rem; border-radius: 999px;
+      background: linear-gradient(180deg, rgba(21,230,193,0.18), rgba(21,230,193,0.08));
       border: 1px solid var(--border);
-      text-shadow: 0 0 10px rgba(21,230,193,.35);
+      text-shadow: 0 0 14px rgba(21,230,193,.5); /* ★ stronger glow */
+      box-shadow: 0 0 0 3px rgba(21,230,193,0.12), inset 0 0 22px rgba(21,230,193,0.12);
     }
 
     /* ====== Header ====== */
     header {
       position: sticky; top: 0; z-index: 50;
       backdrop-filter: saturate(130%) blur(10px);
-      background: linear-gradient(180deg, rgba(5, 8, 15, .8), rgba(5, 8, 15, .35));
+      background: linear-gradient(180deg, rgba(5, 8, 15, .85), rgba(5, 8, 15, .35));
       border-bottom: 1px solid var(--border);
+      box-shadow: 0 10px 40px rgba(0,0,0,.35);
     }
     nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
     .brand { display: flex; align-items: center; gap: .6rem; font-weight: 800; letter-spacing: .4px; }
     .brand .dot {
       width: 12px; height: 12px; border-radius: 50%;
       background: radial-gradient(circle at 30% 30%, #fff, var(--teal) 40%, #0a3d36 80%);
-      box-shadow: 0 0 16px rgba(21,230,193,.8), 0 0 40px rgba(21,230,193,.25);
+      box-shadow: 0 0 18px rgba(21,230,193,.95), 0 0 60px rgba(21,230,193,.35); /* ★ stronger glow */
     }
     .nav-links { display: flex; gap: .25rem; flex-wrap: wrap; }
     .nav-links a {
       padding: .5rem .75rem; border-radius: 10px; color: var(--muted);
       border: 1px solid transparent;
+      transition: color var(--t-fast) var(--e-out), box-shadow var(--t-fast) var(--e-out), background var(--t-fast) var(--e-out), transform var(--t-fast) var(--e-out);
     }
     .nav-links a:hover, .nav-links a:focus {
       color: var(--text);
-      background: linear-gradient(180deg, rgba(21,230,193,0.10), rgba(21,230,193,0.03));
+      background: linear-gradient(180deg, rgba(21,230,193,0.16), rgba(21,230,193,0.06));
       border-color: var(--border);
-      outline: 2px solid transparent; box-shadow: 0 0 0 5px var(--ring);
-      transition: box-shadow .2s ease, background .2s ease;
+      box-shadow: 0 0 0 6px var(--ring), 0 0 28px rgba(21,230,193,.25); /* ★ glowing focus */
+      transform: translateY(-2px);
+      outline: 2px solid transparent;
     }
 
     /* ====== Hero ====== */
@@ -135,33 +182,37 @@
     @media (max-width: 900px) { .hero-inner { grid-template-columns: 1fr; } }
 
     .hero h1 {
-      font-size: clamp(2.2rem, 5vw, 3.2rem); line-height: 1.1; margin: 0 0 12px;
-      text-shadow: 0 0 24px rgba(21,230,193,.18);
+      font-size: clamp(2.2rem, 5vw, 3.3rem); line-height: 1.1; margin: 0 0 12px;
+      text-shadow:
+        0 0 24px rgba(21,230,193,.24),
+        0 0 60px rgba(21,230,193,.18); /* ★ stronger glow */
     }
     .hero p { color: var(--muted); font-size: 1.05rem; margin: 0 0 22px; }
     .hero .cta { display: flex; gap: .8rem; flex-wrap: wrap; }
 
     .avatar {
       width: 160px; aspect-ratio: 1; border-radius: 50%;
-      border: 6px solid rgba(21,230,193,0.25);
-      box-shadow: 0 0 40px rgba(21,230,193,.18), var(--shadow);
+      border: 6px solid rgba(21,230,193,0.3);
+      box-shadow: 0 0 55px rgba(21,230,193,.2), var(--shadow); /* ★ stronger glow */
       overflow: hidden; flex-shrink: 0;
     }
     .hero-card {
       background:
-        linear-gradient(180deg, rgba(21,230,193,0.10), rgba(21,230,193,0.03)),
+        linear-gradient(180deg, rgba(21,230,193,0.12), rgba(21,230,193,0.05)),
         var(--glass);
       border: 1px solid var(--border); border-radius: var(--radius);
       padding: 24px; display: flex; gap: 20px; align-items: center;
-      box-shadow: var(--shadow);
+      box-shadow:
+        0 0 0 6px rgba(21,230,193,0.12),
+        0 24px 80px rgba(0,0,0,.55); /* ★ stronger glow */
     }
 
-    /* ====== Sections ====== */
+    /* ====== Sections & Cards ====== */
     section { padding: 56px 0; scroll-margin-top: 90px; }
     .section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
     .section-head h2 {
       margin: 0; font-size: 1.6rem;
-      text-shadow: 0 0 18px rgba(21,230,193,.15);
+      text-shadow: 0 0 20px rgba(21,230,193,.24); /* ★ glow */
     }
     .grid { display: grid; gap: 16px; }
     .grid.cards { grid-template-columns: repeat(3, 1fr); }
@@ -169,37 +220,82 @@
     @media (max-width: 620px) { .grid.cards { grid-template-columns: 1fr; } }
 
     .card {
+      position: relative;
       background:
-        linear-gradient(180deg, rgba(21,230,193,0.07), rgba(21,230,193,0.02)),
+        linear-gradient(180deg, rgba(21,230,193,0.09), rgba(21,230,193,0.04)),
         var(--glass);
       border: 1px solid var(--border); border-radius: var(--radius);
-      padding: 18px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 12px;
+      padding: 18px; box-shadow:
+        0 0 0 6px rgba(21,230,193,0.10),
+        0 20px 70px rgba(0,0,0,.5);
+      display: flex; flex-direction: column; gap: 12px;
+      overflow: hidden;
+      transition: transform var(--t-med) var(--e-out), box-shadow var(--t-med) var(--e-out), filter var(--t-med) var(--e-out);
     }
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow:
+        0 0 0 8px rgba(21,230,193,0.14),
+        0 28px 90px rgba(0,0,0,.6),
+        0 0 80px rgba(21,230,193,.22); /* ★ card glow on hover */
+      filter: brightness(1.03);
+    }
+    /* Shimmer sweep on hover */
+    .card::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.12) 15%, transparent 30%);
+      transform: translateX(-120%);
+      transition: transform .8s ease;
+      pointer-events: none;
+    }
+    .card:hover::after { transform: translateX(140%); }
+
     .card .thumb {
-      aspect-ratio: 16/9; background: linear-gradient(180deg, var(--bg-2), rgba(21,230,193,0.06));
+      aspect-ratio: 16/9;
+      background: linear-gradient(180deg, var(--bg-2), rgba(21,230,193,0.08));
       border-radius: 12px; overflow: hidden; border: 1px solid var(--border);
+      box-shadow: inset 0 0 40px rgba(21,230,193,.12);
+      transition: box-shadow var(--t-med) var(--e-out), transform var(--t-med) var(--e-out);
     }
+    .card:hover .thumb {
+      box-shadow: inset 0 0 60px rgba(21,230,193,.18), 0 0 40px rgba(21,230,193,.2);
+      transform: scale(1.01);
+    }
+
     .card h3 { margin: 6px 0 4px; font-size: 1.12rem; }
     .meta { color: var(--muted); font-size: .95rem; }
     .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
 
     /* ====== Contact ====== */
     .contact {
-      background: linear-gradient(180deg, rgba(21,230,193,0.10), rgba(21,230,193,0.03)), var(--glass);
+      background: linear-gradient(180deg, rgba(21,230,193,0.12), rgba(21,230,193,0.05)), var(--glass);
       border: 1px solid var(--border); border-radius: var(--radius); padding: 24px;
-      box-shadow: var(--shadow);
+      box-shadow:
+        0 0 0 6px rgba(21,230,193,0.12),
+        0 24px 80px rgba(0,0,0,.55);
+      transition: box-shadow var(--t-med) var(--e-out), transform var(--t-med) var(--e-out);
     }
+    .contact:hover { transform: translateY(-4px); box-shadow: 0 0 0 8px rgba(21,230,193,0.16), 0 30px 90px rgba(0,0,0,.6); }
+
     form { display: grid; gap: 12px; }
     input, textarea {
       width: 100%; padding: .9rem 1rem; border-radius: 12px; border: 1px solid var(--border);
-      background: rgba(7, 15, 22, 0.6); color: var(--text);
-      box-shadow: inset 0 0 0 1px rgba(21,230,193,0.05);
+      background: rgba(7, 15, 22, 0.7); color: var(--text);
+      box-shadow: inset 0 0 0 1px rgba(21,230,193,0.10), 0 0 28px rgba(21,230,193,.08);
+      transition: box-shadow var(--t-fast) var(--e-out), transform var(--t-fast) var(--e-out);
     }
-    input:focus, textarea:focus { outline: none; box-shadow: 0 0 0 5px var(--ring); }
+    input:focus, textarea:focus {
+      outline: none; transform: translateY(-1px);
+      box-shadow: 0 0 0 6px var(--ring), inset 0 0 0 1px rgba(21,230,193,0.15);
+    }
     textarea { min-height: 140px; resize: vertical; }
 
     /* ====== Footer ====== */
-    footer { border-top: 1px solid var(--border); padding: 32px 0; color: var(--muted); }
+    footer {
+      border-top: 1px solid var(--border); padding: 32px 0; color: var(--muted);
+      box-shadow: 0 -10px 40px rgba(0,0,0,.35) inset;
+    }
 
     /* ====== Utilities ====== */
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
@@ -208,8 +304,9 @@
 </head>
 <body>
   <div class="stars" aria-hidden="true"></div>
+  <div class="ambient" aria-hidden="true"></div>
 
-  <header id="top">
+  <header id="top" class="lift">
     <div class="container">
       <nav aria-label="Primary">
         <div class="brand">
@@ -238,11 +335,10 @@
           <div class="cta">
             <a class="btn" href="#projects">See My Work</a>
             <!-- Add socials when ready -->
-            <!-- <a class="btn secondary" href="https://github.com/yourhandle" target="_blank" rel="noopener">GitHub</a> -->
           </div>
         </div>
-        <div class="hero-card">
-          <img class="avatar" src="https://via.placeholder.com/300x300.png?text=Declan" alt="Declan profile placeholder" />
+        <div class="hero-card lift">
+          <img class="avatar" alt="Declan placeholder photo" src="https://via.placeholder.com/300x300.png?text=Declan" />
           <div>
             <p class="meta">Based in Kingston, ON • Available for internships</p>
             <p class="meta">Focused on building, learning, and shipping useful projects.</p>
@@ -262,13 +358,13 @@
       <div class="container">
         <div class="section-head">
           <h2>Projects</h2>
-          <!-- <a class="mono" href="https://github.com/yourhandle?tab=repositories" target="_blank" rel="noopener">All Repos →</a> -->
+          <!-- Add All Repos link when GitHub is provided -->
         </div>
         <div class="grid cards">
-          <!-- Placeholder cards; I’ll replace with your real ones -->
-          <article class="card" aria-busy="true">
+          <!-- Placeholder cards; replace with real ones -->
+          <article class="card">
             <div class="thumb">
-              <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&q=80&auto=format&fit=crop" alt="Project placeholder 1">
+              <img alt="" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&q=80&auto=format&fit=crop">
             </div>
             <h3>Project Title</h3>
             <p class="meta">Short description goes here. I’ll swap these with your real projects.</p>
@@ -276,14 +372,14 @@
               <span class="chip">Tech</span><span class="chip">Stack</span>
             </div>
             <div class="cta" style="margin-top: 8px;">
-              <a class="btn secondary" href="#" aria-disabled="true">GitHub</a>
-              <a class="btn secondary" href="#" aria-disabled="true">Live Demo</a>
+              <a class="btn secondary" href="#">GitHub</a>
+              <a class="btn" href="#">Live Demo</a>
             </div>
           </article>
 
-          <article class="card" aria-busy="true">
+          <article class="card">
             <div class="thumb">
-              <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=80&auto=format&fit=crop" alt="Project placeholder 2">
+              <img alt="" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=80&auto=format&fit=crop">
             </div>
             <h3>Project Title</h3>
             <p class="meta">Short description goes here.</p>
@@ -291,14 +387,14 @@
               <span class="chip">Tech</span><span class="chip">Stack</span>
             </div>
             <div class="cta" style="margin-top: 8px;">
-              <a class="btn secondary" href="#" aria-disabled="true">GitHub</a>
-              <a class="btn secondary" href="#" aria-disabled="true">Live Demo</a>
+              <a class="btn secondary" href="#">GitHub</a>
+              <a class="btn" href="#">Live Demo</a>
             </div>
           </article>
 
-          <article class="card" aria-busy="true">
+          <article class="card">
             <div class="thumb">
-              <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80&auto=format&fit=crop" alt="Project placeholder 3">
+              <img alt="" src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80&auto=format&fit=crop">
             </div>
             <h3>Project Title</h3>
             <p class="meta">Short description goes here.</p>
@@ -306,8 +402,8 @@
               <span class="chip">Tech</span><span class="chip">Stack</span>
             </div>
             <div class="cta" style="margin-top: 8px;">
-              <a class="btn secondary" href="#" aria-disabled="true">GitHub</a>
-              <a class="btn secondary" href="#" aria-disabled="true">Live Demo</a>
+              <a class="btn secondary" href="#">GitHub</a>
+              <a class="btn" href="#">Live Demo</a>
             </div>
           </article>
         </div>
@@ -374,8 +470,8 @@
         <div class="section-head">
           <h2>Get in touch</h2>
         </div>
-        <div class="contact">
-          <p class="meta">Prefer email? <a class="mono" href="mailto:declan.longfield@gmail.com">declan.longfield@gmail.com</a></p>
+        <div class="contact lift">
+          <p class="meta">Prefer email? <a href="mailto:declan.longfield@gmail.com">declan.longfield@gmail.com</a></p>
           <!-- If you want a working form, I can wire it to Formspree -->
           <form onsubmit="return handleSubmit(event)" aria-label="Contact form (placeholder)" novalidate>
             <label class="sr-only" for="name">Name</label>
@@ -396,7 +492,7 @@
     <div class="container" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;">
       <div>© <span id="year"></span> Declan Longfield. All rights reserved.</div>
       <div style="display:flex;gap:12px;">
-        <a class="mono" href="#top">Top ↑</a>
+        <a class="btn secondary" href="#top">Top ↑</a>
       </div>
     </div>
   </footer>
@@ -427,4 +523,3 @@
   </script>
 </body>
 </html>
-
