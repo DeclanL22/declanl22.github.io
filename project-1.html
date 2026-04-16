@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Logo Portfolio — Project 1</title>
+  <meta name="description" content="Logo Portfolio project details." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #05080f;
+      --bg-2: #070b14;
+      --text: #e8f7f7;
+      --muted: #9cd3cf;
+      --teal: #15e6c1;
+      --teal-2: #0fb8a2;
+      --border: rgba(117, 255, 233, 0.22);
+      --glass: rgba(16, 26, 39, 0.5);
+      --radius: 16px;
+      --maxw: 1120px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; padding: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(1400px 900px at 12% -10%, rgba(21,230,193,0.10), transparent 60%),
+        radial-gradient(1000px 700px at 110% 20%, rgba(106,90,205,0.09), transparent 60%),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1120px, 100%); margin: 0 auto; padding: 24px; }
+    header { padding: 20px 0; }
+    nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .brand { font-weight: 800; letter-spacing: .4px; display: inline-flex; align-items: center; gap: .6rem; }
+    .brand .dot { width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #fff, var(--teal) 40%, #0a3d36 80%); box-shadow: 0 0 18px rgba(21,230,193,.95), 0 0 60px rgba(21,230,193,.35); }
+    .nav-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .nav-links a { padding: 10px 14px; border-radius: 10px; background: rgba(21,230,193,0.08); border: 1px solid rgba(21,230,193,0.12); transition: transform .2s ease, background .2s ease; }
+    .nav-links a:hover { transform: translateY(-2px); }
+    .hero { padding: 32px 0; }
+    .hero-inner { display: grid; grid-template-columns: 1.1fr .9fr; gap: 30px; align-items: center; }
+    @media (max-width: 900px) { .hero-inner { grid-template-columns: 1fr; } }
+    .hero h1 { margin: 0 0 16px; font-size: clamp(2.2rem, 4vw, 3rem); }
+    .hero p { color: var(--muted); margin: 0 0 16px; }
+    .card { background: linear-gradient(180deg, rgba(21,230,193,0.10), rgba(21,230,193,0.02)), var(--glass); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: 0 20px 70px rgba(0,0,0,.45); }
+    .card h2 { margin-top: 0; }
+    .tags { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
+    .chip { display: inline-flex; gap: .4rem; padding: .45rem .75rem; border-radius: 999px; background: rgba(21,230,193,0.16); border: 1px solid var(--border); color: var(--teal); font-size: .95rem; }
+    .btn { display: inline-flex; align-items: center; gap: .5rem; padding: .85rem 1.2rem; border-radius: 999px; font-weight: 800; background: linear-gradient(120deg, var(--teal), var(--teal-2) 60%, var(--teal)); color: #061a1a; border: none; cursor: pointer; margin-top: 18px; }
+    .btn.secondary { background: transparent; color: var(--text); border: 1px solid rgba(255,255,255,.18); }
+    .thumb { border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,.08); }
+    .thumb img { width: 100%; display: block; }
+    .image-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 24px; }
+    .image-card { border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,.08); background: rgba(255,255,255,0.04); }
+    .image-card img { width: 100%; height: auto; display: block; }
+    .image-grid h2 { margin: 0 0 16px; }
+    footer { padding: 32px 0; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <nav aria-label="Project navigation">
+        <a class="brand" href="index.html"><span class="dot" aria-hidden="true"></span>Declan Longfield</a>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="index.html#projects">Projects</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-inner">
+          <div>
+            <p class="chip">Project 1</p>
+            <h1>Logo Portfolio</h1>
+            <p>This page shows details for the logo design project. It includes the concept, visual direction, and how the brand system was developed.</p>
+            <div class="tags">
+              <span class="chip">Logo</span>
+              <span class="chip">Branding</span>
+              <span class="chip">Illustration</span>
+            </div>
+            <p class="meta">Use this page to explain the goals, the process, and the final result for this project. Add examples or assets here as needed.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Kleats Logos</h2>
+        <div class="image-grid">
+          <div class="image-card"><img src="Images/KleatsLogo.png" alt="Kleats logo" /></div>
+          <div class="image-card"><img src="Images/KleatsCombo.png" alt="Kleats combo logo" /></div>
+          <div class="image-card"><img src="Images/KleatsTypographic.png" alt="Kleats typographic logo" /></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Project details</h2>
+        <p>For this project, I created a series of logos and visual assets for a new brand identity. The focus was on modern typography, color harmony, and flexible usage across web and print.</p>
+        <ul>
+          <li>Custom logo mark with clean, contemporary lines.</li>
+          <li>Contrast between bold symbols and refined wordmark.</li>
+          <li>Brand guidelines for future marketing use.</li>
+        </ul>
+        <div class="tags">
+          <span class="chip">Adobe Illustrator</span>
+          <span class="chip">Brand strategy</span>
+          <span class="chip">Visual identity</span>
+        </div>
+        <a class="btn secondary" href="index.html#projects">Back to projects</a>
+      </section>
+    </main>
+
+    <footer>
+      <p>© <span id="year">2026</span> Declan Longfield</p>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Creative Campaign — Project 2</title>
+  <meta name="description" content="Creative Campaign project details." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #05080f;
+      --bg-2: #070b14;
+      --text: #e8f7f7;
+      --muted: #9cd3cf;
+      --teal: #15e6c1;
+      --teal-2: #0fb8a2;
+      --border: rgba(117, 255, 233, 0.22);
+      --glass: rgba(16, 26, 39, 0.5);
+      --radius: 16px;
+      --maxw: 1120px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; padding: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(1400px 900px at 12% -10%, rgba(21,230,193,0.10), transparent 60%),
+        radial-gradient(1000px 700px at 110% 20%, rgba(106,90,205,0.09), transparent 60%),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1120px, 100%); margin: 0 auto; padding: 24px; }
+    header { padding: 20px 0; }
+    nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .brand { font-weight: 800; letter-spacing: .4px; display: inline-flex; align-items: center; gap: .6rem; }
+    .brand .dot { width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #fff, var(--teal) 40%, #0a3d36 80%); box-shadow: 0 0 18px rgba(21,230,193,.95), 0 0 60px rgba(21,230,193,.35); }
+    .nav-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .nav-links a { padding: 10px 14px; border-radius: 10px; background: rgba(21,230,193,0.08); border: 1px solid rgba(21,230,193,0.12); transition: transform .2s ease, background .2s ease; }
+    .nav-links a:hover { transform: translateY(-2px); }
+    .hero { padding: 32px 0; }
+    .hero-inner { display: grid; grid-template-columns: 1.1fr .9fr; gap: 30px; align-items: center; }
+    @media (max-width: 900px) { .hero-inner { grid-template-columns: 1fr; } }
+    .hero h1 { margin: 0 0 16px; font-size: clamp(2.2rem, 4vw, 3rem); }
+    .hero p { color: var(--muted); margin: 0 0 16px; }
+    .card { background: linear-gradient(180deg, rgba(21,230,193,0.10), rgba(21,230,193,0.02)), var(--glass); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: 0 20px 70px rgba(0,0,0,.45); }
+    .card h2 { margin-top: 0; }
+    .tags { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
+    .chip { display: inline-flex; gap: .4rem; padding: .45rem .75rem; border-radius: 999px; background: rgba(21,230,193,0.16); border: 1px solid var(--border); color: var(--teal); font-size: .95rem; }
+    .btn { display: inline-flex; align-items: center; gap: .5rem; padding: .85rem 1.2rem; border-radius: 999px; font-weight: 800; background: linear-gradient(120deg, var(--teal), var(--teal-2) 60%, var(--teal)); color: #061a1a; border: none; cursor: pointer; margin-top: 18px; }
+    .btn.secondary { background: transparent; color: var(--text); border: 1px solid rgba(255,255,255,.18); }
+    .thumb { border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,.08); }
+    .thumb img { width: 100%; display: block; }
+    footer { padding: 32px 0; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <nav aria-label="Project navigation">
+        <a class="brand" href="index.html"><span class="dot" aria-hidden="true"></span>Declan Longfield</a>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="index.html#projects">Projects</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-inner">
+          <div>
+            <p class="chip">Project 2</p>
+            <h1>Creative Campaign</h1>
+            <p>An integrated creative campaign built for events and social promotion, designed to capture attention and strengthen brand voice.</p>
+            <div class="tags">
+              <span class="chip">Campaign</span>
+              <span class="chip">Design</span>
+              <span class="chip">Social</span>
+            </div>
+            <p class="meta">This page explains the concept, the visual assets, and how the campaign was set up across different formats.</p>
+          </div>
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=80&auto=format&fit=crop" alt="Creative campaign preview" />
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Project details</h2>
+        <audio controls>
+          <source src="Audio/New_Revision.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+        <p>The campaign is designed to deliver a consistent visual experience across posters, online graphics, and presentation assets. The goal was to make the messaging feel bold, friendly, and easy to follow.</p>
+        <ul>
+          <li>Branded campaign assets for print and digital use.</li>
+          <li>Simple layout system for flexible content updates.</li>
+          <li>Engaging color palette and typography hierarchy.</li>
+        </ul>
+        <div class="tags">
+          <span class="chip">Adobe Photoshop</span>
+          <span class="chip">Layout</span>
+          <span class="chip">Visual Design</span>
+        </div>
+        <a class="btn secondary" href="index.html#projects">Back to projects</a>
+      </section>
+    </main>
+
+    <footer>
+      <p>© <span id="year">2026</span> Declan Longfield</p>
+    </footer>
+  </div>
+</body>
+</html>

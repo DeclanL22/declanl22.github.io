@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Declan Longfield — Portfolio</title>
   <meta name="description" content="Portfolio of Declan Longfield — projects, skills, and contact." />
-  <meta name="color-scheme" content="dark light" />
+  <meta name="color-scheme" content="dark" />
   <!-- Fonts (Inter + JetBrains Mono) -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,19 +28,6 @@
       --radius: 16px;
       --maxw: 1120px;
     }
-    @media (prefers-color-scheme: light) {
-      :root {
-        --bg: #f6fffd;
-        --bg-2: #ebfffb;
-        --text: #061a1a;
-        --muted: #327a73;
-        --glass: rgba(255, 255, 255, 0.7);
-        --border: rgba(14, 171, 150, 0.3);
-        --ring: rgba(14, 171, 150, 0.45);
-        --shadow: 0 20px 60px rgba(10, 48, 44, .18);
-      }
-    }
-
     * { box-sizing: border-box; }
     html, body {
       margin: 0; padding: 0;
@@ -196,6 +182,72 @@
       box-shadow: 0 0 55px rgba(21,230,193,.2), var(--shadow); /* ★ stronger glow */
       overflow: hidden; flex-shrink: 0;
     }
+    .logo-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin: 20px 0;
+      align-items: center;
+    }
+    .logo-img {
+      max-width: 140px;
+      width: min(100%, 140px);
+      display: block;
+      border-radius: 18px;
+      padding: 14px;
+      background: #fff;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.12);
+      cursor: zoom-in;
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+    .logo-img:hover {
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
+    }
+    .logo-viewer {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: blur(8px);
+      z-index: 110;
+    }
+    .logo-viewer.active {
+      display: flex;
+    }
+    .logo-viewer-content {
+      position: relative;
+      max-width: min(92vw, 760px);
+      width: 100%;
+    }
+    .logo-viewer img {
+      width: 100%;
+      height: auto;
+      border-radius: 24px;
+      background: #fff;
+      box-shadow: 0 0 80px rgba(0, 0, 0, 0.35);
+    }
+    .logo-viewer-close {
+      position: absolute;
+      top: -14px;
+      right: -14px;
+      border: 1px solid rgba(255,255,255,0.22);
+      background: rgba(20, 28, 40, 0.95);
+      color: #fff;
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: transform .2s ease, background .2s ease;
+    }
+    .logo-viewer-close:hover {
+      transform: scale(1.04);
+      background: rgba(255, 255, 255, 0.12);
+    }
     .hero-card {
       background:
         linear-gradient(180deg, rgba(21,230,193,0.12), rgba(21,230,193,0.05)),
@@ -231,6 +283,11 @@
       display: flex; flex-direction: column; gap: 12px;
       overflow: hidden;
       transition: transform var(--t-med) var(--e-out), box-shadow var(--t-med) var(--e-out), filter var(--t-med) var(--e-out);
+    }
+    a.card {
+      display: block;
+      color: inherit;
+      text-decoration: none;
     }
     .card:hover {
       transform: translateY(-8px);
@@ -330,24 +387,22 @@
       <div class="container hero-inner">
         <div>
           <div class="chip">Open to opportunities</div>
-          <h1>Hi, I’m <span style="color: var(--teal)">Declan Longfield</span> — <br/><span class="mono">Highschool student</span></h1>
-          <img src="Images/KleatsLogo.png" alt="Kleats Logo" style="max-width: 200px; margin: 20px 0;" />
-          <p class="meta">Short bio coming soon. (I’ll add 3–5 sentences about your interests, strengths, and what you’re looking for.)</p>
+          <h1>Hello, welcome to my portfolio webstie. →</h1>
+          <p class="meta">My name is Declan, I am a student currently finishing my second semester of my victory lap. I am very heavily involved in Scouting as it is one of my many different hobbies. Other hobbies include, sailing, skiing, and collecting of pokemon cards.</p>
           <div class="cta">
             <a class="btn" href="#projects">See My Work</a>
             <!-- Add socials when ready -->
           </div>
         </div>
         <div class="hero-card lift">
-          <img class="avatar" alt="Declan placeholder photo" src="https://via.placeholder.com/300x300.png?text=Declan" />
           <div>
             <p class="meta">Based in Kingston, ON • Available for internships</p>
             <p class="meta">Focused on building, learning, and shipping useful projects.</p>
             <div class="tags">
-              <span class="chip">Your skills here</span>
-              <span class="chip">e.g., Python</span>
-              <span class="chip">JavaScript</span>
-              <span class="chip">React</span>
+              <span class="chip">Scouting</span>
+              <span class="chip">Sailing</span>
+              <span class="chip">Skiing</span>
+              <span class="chip">Pokémon cards</span>
             </div>
           </div>
         </div>
@@ -363,50 +418,47 @@
         </div>
         <div class="grid cards">
           <!-- Placeholder cards; replace with real ones -->
-          <article class="card">
+          <a class="card" href="project-1.html">
             <div class="thumb">
-              <img alt="" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&q=80&auto=format&fit=crop">
+              <img alt="Project 1 preview" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&q=80&auto=format&fit=crop">
             </div>
-            <h3>Project Title</h3>
-            <p class="meta">Short description goes here. I’ll swap these with your real projects.</p>
+            <h3>Graphics</h3>
+            <p class="meta">A custom logo series that combines modern typography and brand identity.</p>
             <div class="tags">
-              <span class="chip">Tech</span><span class="chip">Stack</span>
+              <span class="chip">Design</span><span class="chip">Branding</span>
             </div>
             <div class="cta" style="margin-top: 8px;">
-              <a class="btn secondary" href="#">GitHub</a>
-              <a class="btn" href="#">Live Demo</a>
+              <span class="btn secondary">View Details</span>
             </div>
-          </article>
+          </a>
 
-          <article class="card">
+          <a class="card" href="project-2.html">
             <div class="thumb">
-              <img alt="" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=80&auto=format&fit=crop">
+              <img alt="Project 2 preview" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=80&auto=format&fit=crop">
             </div>
-            <h3>Project Title</h3>
-            <p class="meta">Short description goes here.</p>
+            <h3>Audio</h3>
+            <p class="meta">Visual storytelling built for social media, events, and student outreach.</p>
             <div class="tags">
-              <span class="chip">Tech</span><span class="chip">Stack</span>
+              <span class="chip">Visual</span><span class="chip">Campaign</span>
             </div>
             <div class="cta" style="margin-top: 8px;">
-              <a class="btn secondary" href="#">GitHub</a>
-              <a class="btn" href="#">Live Demo</a>
+              <span class="btn secondary">View Details</span>
             </div>
-          </article>
+          </a>
 
-          <article class="card">
+          <a class="card" href="project-3.html">
             <div class="thumb">
-              <img alt="" src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80&auto=format&fit=crop">
+              <img alt="Project 3 preview" src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80&auto=format&fit=crop">
             </div>
-            <h3>Project Title</h3>
-            <p class="meta">Short description goes here.</p>
+            <h3>Video</h3>
+            <p class="meta">A polished identity design focused on cohesion, color, and consistency.</p>
             <div class="tags">
-              <span class="chip">Tech</span><span class="chip">Stack</span>
+              <span class="chip">Brand</span><span class="chip">Identity</span>
             </div>
             <div class="cta" style="margin-top: 8px;">
-              <a class="btn secondary" href="#">GitHub</a>
-              <a class="btn" href="#">Live Demo</a>
+              <span class="btn secondary">View Details</span>
             </div>
-          </article>
+          </a>
         </div>
       </div>
     </section>
@@ -498,6 +550,13 @@
     </div>
   </footer>
 
+  <div class="logo-viewer" id="logoViewer" aria-hidden="true">
+    <div class="logo-viewer-content">
+      <button class="logo-viewer-close" id="logoViewerClose" aria-label="Close logo preview">Close</button>
+      <img id="logoViewerImage" src="" alt="Expanded logo preview" />
+    </div>
+  </div>
+
   <script>
     // Set current year
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -509,6 +568,42 @@
       status.textContent = 'Thanks! This demo form is not wired up yet.';
       return false;
     }
+
+    function openLogoViewer(src, alt) {
+      const viewer = document.getElementById('logoViewer');
+      const viewerImage = document.getElementById('logoViewerImage');
+      viewerImage.src = src;
+      viewerImage.alt = alt;
+      viewer.classList.add('active');
+      viewer.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeLogoViewer() {
+      const viewer = document.getElementById('logoViewer');
+      const viewerImage = document.getElementById('logoViewerImage');
+      viewer.classList.remove('active');
+      viewer.setAttribute('aria-hidden', 'true');
+      viewerImage.src = '';
+    }
+
+    document.querySelectorAll('.logo-img').forEach((img) => {
+      img.addEventListener('click', () => {
+        openLogoViewer(img.src, img.alt);
+      });
+    });
+
+    document.getElementById('logoViewerClose').addEventListener('click', closeLogoViewer);
+    document.getElementById('logoViewer').addEventListener('click', (event) => {
+      if (event.target.id === 'logoViewer') {
+        closeLogoViewer();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeLogoViewer();
+      }
+    });
 
     // Smooth scroll for same-page links
     document.querySelectorAll('a[href^="#"]').forEach(a => {
